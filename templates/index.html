@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Tienda Online</h1>
+            </div>
+            <ul class="menu">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="#">Productos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>Bienvenido a nuestra tienda</h2>
+            <p>Explora nuestros productos y realiza compras seguras en línea.</p>
+        </section>
+
+        <section class="productos">
+            <h3>Productos Disponibles</h3>
+            <div class="producto-lista">
+                {% for producto in productos %}
+                <div class="producto">
+                    <h4>{{ producto.nombre }}</h4>
+                    <p>Precio: ${{ producto.precio }}</p>
+                    <form action="/comprar" method="post">
+                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <button type="submit">Comprar</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        {% if mensaje %}
+        <section class="mensaje-compra">
+            <p>{{ mensaje }}</p>
+        </section>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Tienda Online. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
